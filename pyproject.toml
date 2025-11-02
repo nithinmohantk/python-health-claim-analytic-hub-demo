@@ -1,0 +1,74 @@
+[tool.poetry]
+name = "healthclaim-analytics-hub"
+version = "1.0.0"
+description = "An advanced Streamlit application for healthcare claims analysis with anomaly detection, network visualization, and GPT-powered fraud insights"
+authors = ["AI Developer <dev@healthclaim.local>"]
+license = "MIT"
+readme = "README.md"
+packages = [
+    { include = "utils" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+streamlit = "^1.28.1"
+pandas = "^2.1.3"
+numpy = "^1.26.2"
+networkx = "^3.2"
+plotly = "^5.18.0"
+scikit-learn = "^1.3.2"
+openai = "^1.3.9"
+python-dotenv = "^1.0.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.4.3"
+pytest-cov = "^4.1.0"
+pytest-mock = "^3.12.0"
+black = "^23.12.0"
+flake8 = "^6.1.0"
+mypy = "^1.7.1"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+    "skip_ci: marks tests to skip in CI environment",
+]
+addopts = "-v --tb=short"
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]
+
+[tool.coverage.run]
+source = ["utils"]
+omit = [
+    "*/tests/*",
+    "*/test_*.py",
+]
+
+[tool.coverage.report]
+precision = 2
+show_missing = true
+skip_covered = false
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
+
+[tool.coverage.html]
+directory = "htmlcov"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
