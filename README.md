@@ -598,7 +598,7 @@ sequenceDiagram
     UI->>App: Initialize Session State
     activate App
     
-    User->>UI: Click "Load Data"
+    User->>UI: Click Load Data
     UI->>App: load_button clicked
     
     App->>Cache: Check cached data
@@ -628,25 +628,26 @@ sequenceDiagram
     DataMod-->>App: Filtered DataFrame
     deactivate DataMod
     
+    rect rgb(200, 220, 255)
+    Note over NetMod,AnoMod: Parallel Processing
     par Network Analysis
         App->>NetMod: build_patient_provider_network()
         activate NetMod
         NetMod-->>App: NetworkX Graph
-        
         App->>NetMod: create_network_visualization()
         NetMod-->>App: Plotly Figure
         deactivate NetMod
     and Anomaly Detection
-        App->>AnoMod: detect_anomalies_*()
+        App->>AnoMod: detect_anomalies()
         activate AnoMod
         AnoMod-->>App: Anomaly scores
-        
         App->>AnoMod: get_top_anomalies()
         AnoMod-->>App: Top 10 anomalies
         deactivate AnoMod
     end
+    end
     
-    User->>UI: Click "GPT Analysis"
+    User->>UI: Click GPT Analysis
     UI->>App: AI button clicked
     
     App->>GPTMod: initialize_openai()
@@ -654,26 +655,22 @@ sequenceDiagram
     
     alt API Key valid
         GPTMod->>GPTMod: Check secrets
-        
         User->>UI: Select analysis type
         
         alt Type: Anomaly Explanation
             App->>GPTMod: generate_anomaly_explanation()
-            GPTMod->>GPTMod: Build prompt
             GPTMod->>OpenAI: ChatCompletion.create()
             activate OpenAI
             OpenAI-->>GPTMod: Response
             deactivate OpenAI
         else Type: Network Insights
             App->>GPTMod: generate_network_insights()
-            GPTMod->>GPTMod: Build prompt
             GPTMod->>OpenAI: ChatCompletion.create()
             activate OpenAI
             OpenAI-->>GPTMod: Response
             deactivate OpenAI
-        else Type: Q&A
+        else Type: Q&A Interface
             App->>GPTMod: answer_claims_question()
-            GPTMod->>GPTMod: Build prompt
             GPTMod->>OpenAI: ChatCompletion.create()
             activate OpenAI
             OpenAI-->>GPTMod: Response
@@ -681,17 +678,16 @@ sequenceDiagram
         end
         
         GPTMod-->>App: Analysis result
-        deactivate GPTMod
     else API Key missing
-        GPTMod-->>App: Error
-        deactivate GPTMod
+        GPTMod-->>App: Error message
     end
+    deactivate GPTMod
     
-    App->>UI: Update display
+    App->>UI: Display results
+    UI-->>User: Render dashboard
     
-    User->>UI: Click "Export"
-    UI->>App: Export button clicked
-    
+    User->>UI: Click Export
+    UI->>App: Export triggered
     App->>App: Generate CSV
     App-->>User: Download file
     
