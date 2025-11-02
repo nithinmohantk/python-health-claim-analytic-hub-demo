@@ -1,0 +1,21 @@
+Loading data...
+Loaded: 606057 rows
+Columns: ['patient_id', 'provider_id', 'claim_amount', 'diagnosis_code', 'procedure_code', 'date']
+
+First patient_id value: 'ef800789-eb74-1f5a-066b-61cbec8d62fe'
+Type: str
+String repr: "ef800789-eb74-1f5a-066b-61cbec8d62fe"
+Length: 36
+Has hyphens: 4
+Matches UUID pattern (36 chars, 4 hyphens): True
+
+First 5 patient_id values:
+  0: 'ef800789-eb74-1f5a-066b-61cbec8d62fe' (len=36, hyphens=4)
+  1: 'ef800789-eb74-1f5a-066b-61cbec8d62fe' (len=36, hyphens=4)
+  2: 'ef800789-eb74-1f5a-066b-61cbec8d62fe' (len=36, hyphens=4)
+  3: 'ef800789-eb74-1f5a-066b-61cbec8d62fe' (len=36, hyphens=4)
+  4: 'ef800789-eb74-1f5a-066b-61cbec8d62fe' (len=36, hyphens=4)
+
+Data types:
+  patient_id dtype: object
+  provider_id dtype: object

@@ -1,0 +1,87 @@
+================================================================================
+Testing GitHub Data Loading
+================================================================================
+
+1. Loading data from GitHub...
+­ƒöì Loading claims CSV from GitHub...
+Ô£à Loaded claims: 141567 rows, 31 cols
+   Columns: ['Id', 'PATIENTID', 'PROVIDERID', 'PRIMARYPATIENTINSURANCEID', 'SECONDARYPATIENTINSURANCEID', 'DEPARTMENTID', 'PATIENTDEPARTMENTID', 'DIAGNOSIS1', 'DIAGNOSIS2', 'DIAGNOSIS3']...
+­ƒöì Loading transactions CSV from GitHub...
+Ô£à Loaded transactions: 647770 rows, 33 cols
+   Columns: ['ID', 'CLAIMID', 'CHARGEID', 'PATIENTID', 'TYPE', 'AMOUNT', 'METHOD', 'FROMDATE', 'TODATE', 'PLACEOFSERVICE']...
+­ƒöì Renaming transaction columns...
+Ô£à Renamed columns: {'ID': 'TRANSACTIONID', 'APPOINTMENTID': 'TRANS_APPOINTMENTID'}
+­ƒöì Converting date columns...
+Ô£à Date conversion complete
+­ƒöì Merging claims and transactions on Id/CLAIMID...
+   Claims Id unique: 141567
+   Transactions CLAIMID unique: 141567
+Ô£à Merged data: 647770 rows
+   Merged columns: ['Id', 'PATIENTID_claims', 'PROVIDERID_claims', 'PRIMARYPATIENTINSURANCEID', 'SECONDARYPATIENTINSURANCEID', 'DEPARTMENTID_claims', 'PATIENTDEPARTMENTID', 'DIAGNOSIS1', 'DIAGNOSIS2', 'DIAGNOSIS3', 'DIAGNOSIS4', 'DIAGNOSIS5', 'DIAGNOSIS6', 'DIAGNOSIS7', 'DIAGNOSIS8']...
+­ƒöì Mapping to standardized schema...
+   Available columns in merged data: ['Id', 'PATIENTID_claims', 'PROVIDERID_claims', 'PRIMARYPATIENTINSURANCEID', 'SECONDARYPATIENTINSURANCEID', 'DEPARTMENTID_claims', 'PATIENTDEPARTMENTID', 'DIAGNOSIS1', 'DIAGNOSIS2', 'DIAGNOSIS3', 'DIAGNOSIS4', 'DIAGNOSIS5', 'DIAGNOSIS6', 'DIAGNOSIS7', 'DIAGNOSIS8', 'REFERRINGPROVIDERID', 'APPOINTMENTID', 'CURRENTILLNESSDATE', 'SERVICEDATE', 'SUPERVISINGPROVIDERID_claims', 'STATUS1', 'STATUS2', 'STATUSP', 'OUTSTANDING1', 'OUTSTANDING2', 'OUTSTANDINGP', 'LASTBILLEDDATE1', 'LASTBILLEDDATE2', 'LASTBILLEDDATEP', 'HEALTHCARECLAIMTYPEID1', 'HEALTHCARECLAIMTYPEID2', 'TRANSACTIONID', 'CLAIMID', 'CHARGEID', 'PATIENTID_trans', 'TYPE', 'AMOUNT', 'METHOD', 'FROMDATE', 'TODATE', 'PLACEOFSERVICE', 'PROCEDURECODE', 'MODIFIER1', 'MODIFIER2', 'DIAGNOSISREF1', 'DIAGNOSISREF2', 'DIAGNOSISREF3', 'DIAGNOSISREF4', 'UNITS', 'DEPARTMENTID_trans', 'NOTES', 'UNITAMOUNT', 'TRANSFEROUTID', 'TRANSFERTYPE', 'PAYMENTS', 'ADJUSTMENTS', 'TRANSFERS', 'OUTSTANDING', 'TRANS_APPOINTMENTID', 'LINENOTE', 'PATIENTINSURANCEID', 'FEESCHEDULEID', 'PROVIDERID_trans', 'SUPERVISINGPROVIDERID_trans']
+   diagnosis_col: 647770 non-null, 0 null
+   claim_amount: 297085 positive, 350685 zero/negative
+Ô£à Standardized schema: (647770, 6)
+   Columns: ['patient_id', 'provider_id', 'claim_amount', 'diagnosis_code', 'procedure_code', 'date']
+   Data types: {'patient_id': dtype('O'), 'provider_id': dtype('O'), 'claim_amount': dtype('float64'), 'diagnosis_code': dtype('O'), 'procedure_code': dtype('int64'), 'date': dtype('<M8[ns]')}
+   Null values before sanitization:
+     patient_id: 0
+     provider_id: 0
+     claim_amount: 0
+     diagnosis_code: 0
+     procedure_code: 0
+   First 5 rows of standardized data:
+     Row 0: patient_id=ef800789-eb74-1f5a-066b-61cbec8d62fe (type=str), provider_id=c0e6dbe2-d933-37eb-a4f9-dd5f662b11bf (type=str)
+     Row 1: patient_id=ef800789-eb74-1f5a-066b-61cbec8d62fe (type=str), provider_id=c0e6dbe2-d933-37eb-a4f9-dd5f662b11bf (type=str)
+     Row 2: patient_id=ef800789-eb74-1f5a-066b-61cbec8d62fe (type=str), provider_id=c0e6dbe2-d933-37eb-a4f9-dd5f662b11bf (type=str)
+     Row 3: patient_id=ef800789-eb74-1f5a-066b-61cbec8d62fe (type=str), provider_id=c0e6dbe2-d933-37eb-a4f9-dd5f662b11bf (type=str)
+     Row 4: patient_id=ef800789-eb74-1f5a-066b-61cbec8d62fe (type=str), provider_id=c0e6dbe2-d933-37eb-a4f9-dd5f662b11bf (type=str)
+­ƒöì Sanitizing data...
+   ­ƒôè Starting sanitization: 647770 rows
+   Columns present: ['patient_id', 'provider_id', 'claim_amount', 'diagnosis_code', 'procedure_code', 'date']
+   Initial null counts:
+     ÔÇó patient_id: 0 nulls, dtype=object
+     ÔÇó provider_id: 0 nulls, dtype=object
+     ÔÇó claim_amount: 0 nulls, dtype=float64
+     ÔÇó diagnosis_code: 0 nulls, dtype=object
+     ÔÇó procedure_code: 0 nulls, dtype=int64
+     ÔÇó date: 0 nulls, dtype=datetime64[ns]
+   Sample values BEFORE conversion:
+     ÔÇó patient_id: ['ef800789-eb74-1f5a-066b-61cbec8d62fe', 'ef800789-eb74-1f5a-066b-61cbec8d62fe', 'ef800789-eb74-1f5a-066b-61cbec8d62fe', 'ef800789-eb74-1f5a-066b-61cbec8d62fe', 'ef800789-eb74-1f5a-066b-61cbec8d62fe'] (types: ['str', 'str', 'str', 'str', 'str'])
+     ÔÇó provider_id: ['c0e6dbe2-d933-37eb-a4f9-dd5f662b11bf', 'c0e6dbe2-d933-37eb-a4f9-dd5f662b11bf', 'c0e6dbe2-d933-37eb-a4f9-dd5f662b11bf', 'c0e6dbe2-d933-37eb-a4f9-dd5f662b11bf', 'c0e6dbe2-d933-37eb-a4f9-dd5f662b11bf'] (types: ['str', 'str', 'str', 'str', 'str'])
+     ÔÇó claim_amount: [125.0, 0.0, 136.0, 0.0, 125.0] (types: ['float', 'float', 'float', 'float', 'float'])
+   Ô£ô After drop_duplicates: 606057 rows (removed 41713)
+   ÔÇó patient_id: UUID string format, keeping as-is (not converting to numeric)
+   ÔÇó provider_id: UUID string format, keeping as-is (not converting to numeric)
+   ÔÇó claim_amount: already numeric (float64), 0 nulls
+   Ô£ô After numeric handling: 606057 rows
+   Null counts after numeric conversion:
+     ÔÇó patient_id: 0 nulls
+     ÔÇó provider_id: 0 nulls
+     ÔÇó claim_amount: 0 nulls
+   ÔÜá´©Å  Found 0 rows with nulls in ['patient_id', 'provider_id']
+   Ô£ô After dropna: 606057 rows (dropped 0)
+   ÔÇó claim_amount: 0 nulls before fillna
+   ÔÇó claim_amount: 0 negative values
+   Ô£ô After claim_amount >= 0: 606057 rows (dropped 0)
+   Ô£à Sanitization complete: 606057 rows (93.6% retained)
+Ô£à Final data: 606057 rows after sanitization
+
+Ô£à Result: 606057 rows, 6 columns
+   Columns: ['patient_id', 'provider_id', 'claim_amount', 'diagnosis_code', 'procedure_code', 'date']
+
+   Data types:
+     ÔÇó patient_id: object
+     ÔÇó provider_id: object
+     ÔÇó claim_amount: float64
+     ÔÇó diagnosis_code: object
+     ÔÇó procedure_code: int64
+     ÔÇó date: datetime64[ns]
+
+   Sample rows (first 3):
+     Row 0: patient_id=ef800789-eb74-1f5a-066b-61cbec8d62fe, provider_id=c0e6dbe2-d933-37eb-a4f9-dd5f662b11bf, claim_amount=125.0
+     Row 1: patient_id=ef800789-eb74-1f5a-066b-61cbec8d62fe, provider_id=c0e6dbe2-d933-37eb-a4f9-dd5f662b11bf, claim_amount=0.0
+     Row 2: patient_id=ef800789-eb74-1f5a-066b-61cbec8d62fe, provider_id=c0e6dbe2-d933-37eb-a4f9-dd5f662b11bf, claim_amount=136.0
+
+================================================================================

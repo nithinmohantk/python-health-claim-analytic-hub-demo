@@ -23,8 +23,22 @@ def build_patient_provider_network(df: pd.DataFrame) -> nx.Graph:
     G = nx.Graph()
     
     for _, row in df.iterrows():
-        patient_node = f"Patient_{int(row['patient_id'])}"
-        provider_node = f"Provider_{int(row['provider_id'])}"
+        # Handle both numeric IDs and UUID strings
+        patient_id = row['patient_id']
+        provider_id = row['provider_id']
+        
+        # Convert to string for node naming (works for both int and UUID)
+        try:
+            patient_node = f"Patient_{int(patient_id)}"
+        except (ValueError, TypeError):
+            # If it's a UUID or non-numeric string, use it directly
+            patient_node = f"Patient_{str(patient_id)[:8]}"  # Use first 8 chars of UUID
+        
+        try:
+            provider_node = f"Provider_{int(provider_id)}"
+        except (ValueError, TypeError):
+            # If it's a UUID or non-numeric string, use it directly
+            provider_node = f"Provider_{str(provider_id)[:8]}"  # Use first 8 chars of UUID
         
         # Add nodes with type attribute
         G.add_node(patient_node, node_type='patient')
@@ -159,13 +173,23 @@ def get_network_statistics(G: nx.Graph) -> Dict:
     Returns:
         Dictionary of network statistics
     """
-    if G.number_of_nodes() == 0:
-        return {}
+    # Always return a dict with default values
+    num_nodes = G.number_of_nodes()
+    
+    if num_nodes == 0:
+        return {
+            'num_nodes': 0,
+            'num_edges': 0,
+            'avg_degree': 0.0,
+            'density': 0.0,
+            'num_connected_components': 0,
+            'is_connected': False,
+        }
     
     return {
-        'num_nodes': G.number_of_nodes(),
+        'num_nodes': num_nodes,
         'num_edges': G.number_of_edges(),
-        'avg_degree': sum(dict(G.degree()).values()) / G.number_of_nodes(),
+        'avg_degree': sum(dict(G.degree()).values()) / num_nodes,
         'density': nx.density(G),
         'num_connected_components': nx.number_connected_components(G),
         'is_connected': nx.is_connected(G),

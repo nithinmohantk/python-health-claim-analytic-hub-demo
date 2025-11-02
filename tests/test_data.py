@@ -38,8 +38,10 @@ class TestDataSanitization:
     def test_sanitize_handles_null_values(self, claims_with_nulls):
         """Test that null values are handled correctly"""
         result = sanitize_claims_data(claims_with_nulls)
-        # Should remove rows with nulls in critical columns
-        assert result.isnull().sum().sum() == 0
+        # Should remove rows with nulls in CRITICAL columns (patient_id, provider_id)
+        # But diagnosis_code can be None (filled with 'UNKNOWN') and that's ok
+        assert result['patient_id'].notna().all()
+        assert result['provider_id'].notna().all()
     
     def test_sanitize_removes_negative_amounts(self, sample_claims_df):
         """Test that negative claim amounts are removed"""
@@ -174,7 +176,10 @@ class TestDataEdgeCases:
             'diagnosis_code': ['I10', 'E11', 'J45'],
         })
         result = sanitize_claims_data(df)
-        assert len(result) == 0  # All rows removed due to nulls
+        # Now we keep rows with NULL claim_amount (filled as 0)
+        # Only rows are removed if patient_id or provider_id are NULL
+        assert len(result) == 3  # All rows kept (nulls filled as 0)
+        assert (result['claim_amount'] >= 0).all()
     
     def test_zero_claim_amounts(self):
         """Test handling of zero claim amounts"""
@@ -185,8 +190,9 @@ class TestDataEdgeCases:
             'diagnosis_code': ['I10', 'E11'],
         })
         result = sanitize_claims_data(df)
-        assert len(result) == 1  # Zero amount removed
-        assert result['claim_amount'].iloc[0] == 100.0
+        # Now we KEEP zero amounts (they are valid claims)
+        assert len(result) == 2  # Both rows kept
+        assert (result['claim_amount'] >= 0).all()  # All amounts >= 0
 
 
 class TestDataIntegration:

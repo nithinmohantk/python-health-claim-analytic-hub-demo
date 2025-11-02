@@ -5,8 +5,8 @@ Handles OpenAI API interactions and prompt generation
 
 import streamlit as st
 import pandas as pd
-from typing import Optional, List
-import openai
+from typing import Optional
+from openai import OpenAI, AuthenticationError, RateLimitError, APITimeoutError
 
 
 def initialize_openai():
@@ -16,10 +16,19 @@ def initialize_openai():
             "⚠️ Please add your OpenAI API key to Streamlit secrets as 'OPENAI_API_KEY'. "
             "See .streamlit/secrets.toml.example for setup instructions."
         )
-        return False
+        return None
     
-    openai.api_key = st.secrets["OPENAI_API_KEY"]
-    return True
+    api_key = st.secrets["OPENAI_API_KEY"]
+    st.write(f"🔍 DEBUG [initialize_openai]: API key loaded, length={len(api_key)}")
+    
+    try:
+        client = OpenAI(api_key=api_key)
+        st.write(f"✅ DEBUG [initialize_openai]: OpenAI client created successfully")
+        return client
+    except Exception as e:
+        st.error(f"❌ Failed to initialize OpenAI client: {str(e)}")
+        st.write(f"🔍 DEBUG [initialize_openai]: Exception - {type(e).__name__}: {str(e)}")
+        return None
 
 
 def generate_anomaly_explanation(
@@ -40,7 +49,8 @@ def generate_anomaly_explanation(
     Returns:
         Explanation text or None if API fails
     """
-    if not initialize_openai():
+    client = initialize_openai()
+    if client is None:
         return None
     
     # Build prompt with claim information
@@ -69,7 +79,7 @@ def generate_anomaly_explanation(
     prompt = "\n".join(prompt_lines)
     
     try:
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model=model,
             messages=[
                 {
@@ -83,16 +93,19 @@ def generate_anomaly_explanation(
             timeout=30
         )
         
-        return response['choices'][0]['message']['content']
+        return response.choices[0].message.content
         
+    except AuthenticationError:
+        st.error("❌ Authentication failed. Please check your OpenAI API key.")
+        return None
+    except RateLimitError:
+        st.warning("⚠️ Rate limit reached. Please try again in a moment.")
+        return None
+    except APITimeoutError:
+        st.error("❌ Request timed out. Please try again.")
+        return None
     except Exception as e:
-        error_str = str(e).lower()
-        if "401" in error_str or "authentication" in error_str:
-            st.error("❌ Authentication failed. Please check your OpenAI API key.")
-        elif "rate" in error_str or "429" in error_str:
-            st.warning("⚠️ Rate limit reached. Please try again in a moment.")
-        else:
-            st.error(f"❌ Error calling OpenAI API: {str(e)}")
+        st.error(f"❌ Error calling OpenAI API: {str(e)}")
         return None
 
 
@@ -114,7 +127,8 @@ def generate_network_insights(
     Returns:
         Network insights text or None if API fails
     """
-    if not initialize_openai():
+    client = initialize_openai()
+    if client is None:
         return None
     
     # Safely format network stats (handle 'N/A' strings)
@@ -152,7 +166,7 @@ Based on this network analysis, identify:
 Be specific and actionable in your response."""
     
     try:
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model=model,
             messages=[
                 {
@@ -166,8 +180,17 @@ Be specific and actionable in your response."""
             timeout=30
         )
         
-        return response['choices'][0]['message']['content']
+        return response.choices[0].message.content
         
+    except AuthenticationError:
+        st.error("❌ Authentication failed. Please check your OpenAI API key.")
+        return None
+    except RateLimitError:
+        st.warning("⚠️ Rate limit reached. Please try again in a moment.")
+        return None
+    except APITimeoutError:
+        st.error("❌ Request timed out. Please try again.")
+        return None
     except Exception as e:
         st.error(f"Error generating network insights: {str(e)}")
         return None
@@ -189,7 +212,8 @@ def answer_claims_question(
     Returns:
         Answer text or None if API fails
     """
-    if not initialize_openai():
+    client = initialize_openai()
+    if client is None:
         return None
     
     prompt = f"""You are a healthcare claims data analyst. A fraud investigator has asked the following question:
@@ -203,7 +227,7 @@ Provide a detailed, factual answer based on the data context. If the data is ins
 explain what additional information would be needed."""
     
     try:
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model=model,
             messages=[
                 {
@@ -217,25 +241,61 @@ explain what additional information would be needed."""
             timeout=30
         )
         
-        return response['choices'][0]['message']['content']
+        return response.choices[0].message.content
         
+    except AuthenticationError:
+        st.error("❌ Authentication failed. Please check your OpenAI API key.")
+        return None
+    except RateLimitError:
+        st.warning("⚠️ Rate limit reached. Please try again in a moment.")
+        return None
+    except APITimeoutError:
+        st.error("❌ Request timed out. Please try again.")
+        return None
     except Exception as e:
         st.error(f"Error answering question: {str(e)}")
         return None
 
 
-def validate_api_connection() -> bool:
+def validate_api_connection(verbose: bool = True) -> bool:
     """
     Validate OpenAI API connection with a simple test call.
+    
+    Args:
+        verbose: If True, show debug output. If False, silent validation.
     
     Returns:
         True if connection successful, False otherwise
     """
-    if not initialize_openai():
-        return False
-    
     try:
-        response = openai.ChatCompletion.create(
+        # Check if API key exists
+        if "OPENAI_API_KEY" not in st.secrets:
+            if verbose:
+                st.error("❌ OPENAI_API_KEY not found in secrets!")
+            return False
+        
+        api_key = st.secrets.get("OPENAI_API_KEY", "")
+        
+        if verbose:
+            api_key_preview = f"{api_key[:10]}...{api_key[-10:]}" if len(api_key) > 20 else "***"
+            st.write(f"🔍 DEBUG: API Key found: {api_key_preview}")
+            st.write(f"🔍 DEBUG: Full length: {len(api_key)} chars")
+        
+        # Create client directly (avoid initialize_openai debug output)
+        try:
+            client = OpenAI(api_key=api_key)
+            if verbose:
+                st.write("✅ OpenAI client initialized successfully")
+        except Exception as e:
+            if verbose:
+                st.error(f"❌ Failed to initialize OpenAI client: {str(e)}")
+            return False
+        
+        if verbose:
+            st.write("📡 Sending test request to OpenAI...")
+        
+        # Try to make a simple API call
+        response = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "user", "content": "Say 'ready' in one word."}
@@ -245,8 +305,27 @@ def validate_api_connection() -> bool:
             timeout=10
         )
         
-        return response['choices'][0]['message']['content'].lower().strip() == 'ready'
+        response_text = response.choices[0].message.content.lower().strip()
         
+        if verbose:
+            st.write(f"✅ Response received successfully! Message: '{response_text}'")
+        
+        # API is working if we got a response
+        return True
+        
+    except AuthenticationError as e:
+        if verbose:
+            st.error(f"❌ Authentication error: {str(e)}")
+        return False
+    except RateLimitError:
+        if verbose:
+            st.warning("API Connection Test: Rate limit reached.")
+        return False
+    except APITimeoutError:
+        if verbose:
+            st.error("API Connection Test Failed: Request timed out.")
+        return False
     except Exception as e:
-        st.error(f"API Connection Test Failed: {str(e)}")
+        if verbose:
+            st.error(f"API Connection Test Failed: {str(e)}")
         return False

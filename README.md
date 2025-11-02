@@ -1123,11 +1123,11 @@ This application is a **decision support tool** and should **NOT** be the sole b
 
 **Last Updated**: November 2, 2025
 
-**Version**: 1.0.0  
-**Status**: Production Ready
+**Version**: 0.0.1-alpha  
+**Status**: Demo / POC    
 
-**Current Maintainer**: AI Development Team  
-**Original Creator**: Nithin Mohan T K (Neural Nexus - ITAG Atlantec Hackathon 2025)
+**Current Maintainer**: Nithin Mohan T K  
+**Original Creator**: Nithin Mohan T K (Neural Nexus)
 
 **Related Projects**:
 - [Neural Nexus Healthcare Fraud Detection](https://github.com/HackmaniaGX/neural-nexus-healthcare-fwa-analysis) - Original project

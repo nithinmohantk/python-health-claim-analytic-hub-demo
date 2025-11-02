@@ -7,12 +7,12 @@ font = "sans serif"
 
 [client]
 showErrorDetails = true
-maxUploadSize = 200
 
 [logger]
-level = "info"
+level = "debug"
 
 [server]
 port = 8501
 headless = true
 runOnSave = true
+enableXsrfProtection = false

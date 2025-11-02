@@ -96,7 +96,11 @@ class TestNetworkStatistics:
         """Test statistics on empty graph"""
         G = nx.Graph()
         stats = get_network_statistics(G)
-        assert stats == {}
+        # Empty graph should return default values, not empty dict
+        assert stats['num_nodes'] == 0
+        assert stats['num_edges'] == 0
+        assert stats['avg_degree'] == 0.0
+        assert stats['density'] == 0.0
     
     def test_network_connectivity(self, dense_network):
         """Test connectivity calculations"""
