@@ -170,12 +170,7 @@ python-streamlit-gpt-dataviz-agent/
 │   └── test_gpt.py                 # 25 tests for GPT module
 │
 ├── 📖 docs/ (Documentation)
-│   ├── README.md                   # Copy in docs folder
-│   ├── DEPLOYMENT.md               # 4 deployment methods & configurations
-│   ├── IMPLEMENTATION_SUMMARY.md   # Technical implementation details
-│   ├── FILES_REFERENCE.md          # Detailed file descriptions
-│   ├── COMPLETION_REPORT.md        # Project completion checklist
-│   ├── INDEX.md                    # Documentation navigation guide
+│   ├── DEPLOYMENT.md               # Deployment methods & configurations
 │   └── TESTING.md                  # Testing strategy & guide
 │
 ├── 📊 htmlcov/ (Test Coverage Report)

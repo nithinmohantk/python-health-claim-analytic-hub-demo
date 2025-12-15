@@ -1,0 +1,83 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+    types: [opened, synchronize, reopened, ready_for_review]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Cache pip packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements*.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install -r requirements-dev.txt
+
+    - name: Lint with flake8
+      run: |
+        flake8 utils/ app.py tests/ --max-line-length=100 --exclude=venv,__pycache__ --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 utils/ app.py tests/ --max-line-length=100 --exclude=venv,__pycache__ --exit-zero
+
+    - name: Format check with black
+      run: |
+        black --check utils/ app.py tests/
+
+    - name: Import sort check with isort
+      run: |
+        isort --check-only utils/ app.py tests/
+
+    - name: Type check with mypy
+      run: |
+        mypy utils/ --ignore-missing-imports || true
+
+    - name: Run tests
+      run: |
+        pytest tests/ -v --cov=utils --cov=app --cov-report=xml --cov-report=term-missing
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./coverage.xml
+        flags: unittests
+        name: codecov-umbrella
+        fail_ci_if_error: false
+
+  docker-build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Build Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        push: false
+        tags: healthclaim-analytics-hub:test
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
