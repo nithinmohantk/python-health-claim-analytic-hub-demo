@@ -1,0 +1,133 @@
+name: PR Quality Checks
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+jobs:
+  pr-quality:
+    name: PR Quality Checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check PR title format
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const title = pr.title;
+            
+            const validPrefixes = [
+              'Add:', 'Fix:', 'Update:', 'Refactor:', 
+              'Docs:', 'Test:', 'Style:', 'Chore:'
+            ];
+            
+            const hasValidPrefix = validPrefixes.some(prefix => title.startsWith(prefix));
+            
+            if (!hasValidPrefix) {
+              core.warning(`PR title "${title}" should start with one of: ${validPrefixes.join(', ')}`);
+            } else {
+              console.log(`✓ PR title follows convention: "${title}"`);
+            }
+
+      - name: Check PR has description
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const minLength = 50;
+            
+            if (!pr.body || pr.body.trim().length < minLength) {
+              core.setFailed(`PR description is required and must be at least ${minLength} characters. ` +
+                `Please add a detailed description of your changes.`);
+            } else {
+              console.log('✓ PR has adequate description');
+            }
+
+      - name: Check for linked issues
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const body = pr.body || '';
+            
+            // Check for issue references (closes #123, fixes #456, etc.)
+            const issuePattern = /(?:close|closes|closed|fix|fixes|fixed|resolve|resolves|resolved)\s+#\d+/i;
+            const hasIssueLink = issuePattern.test(body);
+            
+            if (!hasIssueLink && pr.title.toLowerCase().includes('[skip issue]') === false) {
+              core.notice('💡 Consider linking this PR to an issue using "Closes #123" or "Fixes #456"');
+            } else {
+              console.log('✓ PR is linked to an issue or marked to skip');
+            }
+
+      - name: Check PR size
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: files } = await github.rest.pulls.listFiles({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+            });
+            
+            const stats = files.reduce((acc, file) => {
+              acc.additions += file.additions;
+              acc.deletions += file.deletions;
+              acc.files += 1;
+              return acc;
+            }, { additions: 0, deletions: 0, files: 0 });
+            
+            const totalChanges = stats.additions + stats.deletions;
+            
+            console.log(`PR Statistics:`);
+            console.log(`  Files: ${stats.files}`);
+            console.log(`  Additions: ${stats.additions}`);
+            console.log(`  Deletions: ${stats.deletions}`);
+            console.log(`  Total: ${totalChanges}`);
+            
+            // Warn for very large PRs
+            if (totalChanges > 2000) {
+              core.warning(`⚠️ Large PR: ${totalChanges} changes. Consider splitting into smaller PRs.`);
+            }
+            
+            if (stats.files > 30) {
+              core.warning(`⚠️ Many files changed: ${stats.files}. Consider splitting into smaller PRs.`);
+            }
+
+      - name: Comment PR quality summary
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const { data: files } = await github.rest.pulls.listFiles({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+            });
+            
+            const stats = files.reduce((acc, file) => {
+              acc.additions += file.additions;
+              acc.deletions += file.deletions;
+              return acc;
+            }, { additions: 0, deletions: 0 });
+            
+            const comment = `## 📊 PR Quality Summary
+            
+- **Files Changed**: ${files.length}
+- **Additions**: +${stats.additions}
+- **Deletions**: -${stats.deletions}
+- **Total Changes**: ${stats.additions + stats.deletions}
+
+${stats.additions + stats.deletions > 1000 ? '⚠️ **Note**: This is a large PR. Consider splitting into smaller changes if possible.' : '✅ PR size looks good!'}
+`;
+            
+            // Only comment if PR is ready for review
+            if (pr.draft === false) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: comment,
+              });
+            }

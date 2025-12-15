@@ -32,6 +32,15 @@ By participating in this project, you agree to maintain a respectful and inclusi
    ```bash
    git checkout -b feature/your-feature-name
    ```
+   
+   **Branch Naming Conventions:**
+   - `feature/description` - New features
+   - `bugfix/description` - Bug fixes
+   - `hotfix/description` - Critical fixes
+   - `docs/description` - Documentation
+   - `refactor/description` - Refactoring
+   
+   See [GitHub Flow Guide](.github/GITHUB_FLOW.md) for details.
 
 2. **Make your changes** following the coding standards below
 
@@ -54,9 +63,12 @@ By participating in this project, you agree to maintain a respectful and inclusi
    ```
 
 7. **Create a Pull Request** with:
-   - Clear title and description
-   - Reference to related issues
+   - Clear title following convention (e.g., "Add: feature description")
+   - Detailed description using the PR template
+   - Reference to related issues (use "Closes #123" or "Fixes #456")
    - Screenshots (for UI changes)
+   
+   The PR template will automatically populate when creating a PR. See [Branch Protection Rules](.github/BRANCH_PROTECTION.md) for requirements.
 
 ## Coding Standards
 
@@ -171,13 +183,15 @@ Update: Improve anomaly detection accuracy
 ## Review Process
 
 1. All PRs require at least one approval
-2. All tests must pass
-3. Code must pass linting checks
+2. All CI checks must pass (tests, linting, formatting)
+3. Branch protection rules are enforced automatically
 4. Maintainers will review for:
    - Code quality and style
    - Test coverage
    - Documentation completeness
    - Security considerations
+   
+   See [Branch Protection Rules](.github/BRANCH_PROTECTION.md) for complete requirements.
 
 ## Questions?
 
