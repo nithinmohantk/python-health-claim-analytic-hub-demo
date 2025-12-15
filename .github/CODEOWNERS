@@ -1,0 +1,26 @@
+# Code owners file
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Global owners
+* @your-username
+
+# Core application files
+/app.py @your-username
+/utils/ @your-username
+
+# Configuration files
+/.github/ @your-username
+/.streamlit/ @your-username
+/Dockerfile @your-username
+/docker-compose.yml @your-username
+
+# Documentation
+/docs/ @your-username
+/README.md @your-username
+/CONTRIBUTING.md @your-username
+
+# Tests
+/tests/ @your-username
+
+# CI/CD
+/.github/workflows/ @your-username
