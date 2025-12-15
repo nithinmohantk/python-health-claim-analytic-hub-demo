@@ -2,7 +2,7 @@
 
 AI-powered patient claims fraud, waste, and abuse (FWA) detection system with interactive network visualization and GPT-4 integration.
 
-> **🕵️‍♀️ Built Upon:** This project is a modern extension and enhancement of the innovative work from the **[Neural Nexus Healthcare Fraud Detection](https://github.com/HackmaniaGX/neural-nexus-healthcare-fwa-analysis)** project. Originally developed for the **ITAG Atlantec Hackathon 2025** held in Galway, that project pioneered the use of graph analysis and machine learning for healthcare fraud detection. This solution modernizes and extends those concepts with a production-ready Streamlit application, advanced AI integration, and enterprise deployment support.
+> **🕵️‍♀️ Built Upon:** This project is a modern extension and enhancement of the innovative work from the **[Neural Nexus Healthcare Fraud Detection](https://github.com/nithinmohantk/neural-nexus-healthcare-fwa-analysis)** project. Originally developed for the **ITAG Atlantec Hackathon 2025** held in Galway, that project pioneered the use of graph analysis and machine learning for healthcare fraud detection. This solution modernizes and extends those concepts with a production-ready Streamlit application, advanced AI integration, and enterprise deployment support.
 >
 > **Original Contributors:** Primarily developed and maintained by **Nithin Mohan T K**  
 > **Disclaimer:** This solution uses **synthetic data generated with Irish healthcare context** for demonstration purposes and does not represent actual claims data. It is intended for learning and personal development only.
@@ -1121,7 +1121,8 @@ This application is a **decision support tool** and should **NOT** be the sole b
 **Original Creator**: Nithin Mohan T K (Neural Nexus)
 
 **Related Projects**:
-- [Neural Nexus Healthcare Fraud Detection](https://github.com/HackmaniaGX/neural-nexus-healthcare-fwa-analysis) - Original project
+- [Neural Nexus Healthcare Fraud Detection](https://github.com/nithinmohantk/neural-nexus-healthcare-fwa-analysis) - Original project
 - [ITAG Atlantec Hackathon 2025](https://itagatlantec.ie/) - Hackathon information
 
 **Note**: This project is a modernized extension of the Neural Nexus work. All sample data is synthetic and generated for demonstration purposes only. This is a personal learning project and does not represent any employer's work or knowledge.
+
