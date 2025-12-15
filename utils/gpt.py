@@ -19,15 +19,12 @@ def initialize_openai():
         return None
     
     api_key = st.secrets["OPENAI_API_KEY"]
-    st.write(f"🔍 DEBUG [initialize_openai]: API key loaded, length={len(api_key)}")
     
     try:
         client = OpenAI(api_key=api_key)
-        st.write(f"✅ DEBUG [initialize_openai]: OpenAI client created successfully")
         return client
     except Exception as e:
         st.error(f"❌ Failed to initialize OpenAI client: {str(e)}")
-        st.write(f"🔍 DEBUG [initialize_openai]: Exception - {type(e).__name__}: {str(e)}")
         return None
 
 
@@ -276,23 +273,13 @@ def validate_api_connection(verbose: bool = True) -> bool:
         
         api_key = st.secrets.get("OPENAI_API_KEY", "")
         
-        if verbose:
-            api_key_preview = f"{api_key[:10]}...{api_key[-10:]}" if len(api_key) > 20 else "***"
-            st.write(f"🔍 DEBUG: API Key found: {api_key_preview}")
-            st.write(f"🔍 DEBUG: Full length: {len(api_key)} chars")
-        
-        # Create client directly (avoid initialize_openai debug output)
+        # Create client directly
         try:
             client = OpenAI(api_key=api_key)
-            if verbose:
-                st.write("✅ OpenAI client initialized successfully")
         except Exception as e:
             if verbose:
                 st.error(f"❌ Failed to initialize OpenAI client: {str(e)}")
             return False
-        
-        if verbose:
-            st.write("📡 Sending test request to OpenAI...")
         
         # Try to make a simple API call
         response = client.chat.completions.create(
@@ -305,12 +292,10 @@ def validate_api_connection(verbose: bool = True) -> bool:
             timeout=10
         )
         
-        response_text = response.choices[0].message.content.lower().strip()
-        
-        if verbose:
-            st.write(f"✅ Response received successfully! Message: '{response_text}'")
-        
         # API is working if we got a response
+        if verbose and response.choices[0].message.content:
+            st.success("✅ API connection successful!")
+        
         return True
         
     except AuthenticationError as e:
