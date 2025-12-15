@@ -1,0 +1,546 @@
+<mxfile host="app.diagrams.net" modified="2025-11-02T00:00:00.000Z" agent="draw.io" version="21.0.0" etag="architecture-v2" type="device">
+  <diagram id="c4-context" name="C4 Context">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="2000" math="0" shadow="0">
+      <root>
+        <mxCell id="ctx-0" />
+        <mxCell id="ctx-1" parent="ctx-0" />
+        <mxCell id="ctx-title" value="C4 Context Diagram - HealthClaim Analytics Hub" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;fontStyle=1" vertex="1" parent="ctx-1">
+          <mxGeometry x="400" y="60" width="600" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ctx-system" value="HealthClaim Analytics Hub&#xa;&#xa;Detects healthcare fraud, waste, and abuse&#xa;through network analysis and AI insights&#xa;&#xa;Technology: Python, Streamlit" style="swimlane;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=16;align=center;" vertex="1" parent="ctx-1">
+          <mxGeometry x="450" y="200" width="500" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="ctx-user" value="Healthcare Fraud Analyst&#xa;&#xa;Investigates suspicious claims&#xa;and fraud patterns" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="ctx-1">
+          <mxGeometry x="150" y="220" width="100" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="ctx-github" value="GitHub Repository&#xa;&#xa;Sample claims data source&#xa;Raw CSV files" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;align=center;" vertex="1" parent="ctx-1">
+          <mxGeometry x="1100" y="180" width="200" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="ctx-openai" value="OpenAI API&#xa;&#xa;GPT-4 / GPT-3.5&#xa;AI Analysis Service" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;align=center;" vertex="1" parent="ctx-1">
+          <mxGeometry x="1100" y="320" width="200" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="ctx-edge1" value="Views fraud insights&#xa;and network visualizations" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;endArrow=block;endFill=1;fontSize=12;" edge="1" parent="ctx-1" source="ctx-user" target="ctx-system">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ctx-edge2" value="Loads sample data&#xa;via HTTPS" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;dashed=1;fontSize=11;" edge="1" parent="ctx-1" source="ctx-system" target="ctx-github">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ctx-edge3" value="Requests AI analysis&#xa;via REST API" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;dashed=1;fontSize=11;" edge="1" parent="ctx-1" source="ctx-system" target="ctx-openai">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="c4-container" name="C4 Container">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="2000" math="0" shadow="0">
+      <root>
+        <mxCell id="cnt-0" />
+        <mxCell id="cnt-1" parent="cnt-0" />
+        <mxCell id="cnt-title" value="C4 Container Diagram - System Components" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;fontStyle=1" vertex="1" parent="cnt-1">
+          <mxGeometry x="400" y="40" width="600" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="cnt-user" value="Healthcare Fraud Analyst" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="cnt-1">
+          <mxGeometry x="80" y="200" width="100" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="cnt-webapp" value="Streamlit Web Application&#xa;&#xa;Technology: Python 3.10+, Streamlit&#xa;Provides interactive UI for fraud analysis&#xa;Session state management&#xa;Real-time data visualization" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=13;align=left;" vertex="1" parent="cnt-1">
+          <mxGeometry x="280" y="160" width="320" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="cnt-datamodule" value="Data Processing Module&#xa;(utils/data.py)&#xa;&#xa;Loads, validates, sanitizes&#xa;and filters claims data&#xa;CSV parsing, schema validation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;align=left;" vertex="1" parent="cnt-1">
+          <mxGeometry x="680" y="100" width="240" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="cnt-networkmod" value="Network Analysis Module&#xa;(utils/network.py)&#xa;&#xa;Builds patient-provider graphs&#xa;Detects fraud rings via cliques&#xa;NetworkX, Plotly visualization" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;align=left;" vertex="1" parent="cnt-1">
+          <mxGeometry x="680" y="280" width="240" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="cnt-anomalymod" value="Anomaly Detection Module&#xa;(utils/anomaly.py)&#xa;&#xa;3 detection methods:&#xa;Threshold, Z-Score, Isolation Forest&#xa;Scikit-learn ML algorithms" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;align=left;" vertex="1" parent="cnt-1">
+          <mxGeometry x="680" y="460" width="240" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="cnt-gptmod" value="GPT Integration Module&#xa;(utils/gpt.py)&#xa;&#xa;OpenAI API integration&#xa;AI-powered insights generation&#xa;Error handling, rate limiting" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;align=left;" vertex="1" parent="cnt-1">
+          <mxGeometry x="680" y="640" width="240" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="cnt-cache" value="Streamlit Cache&#xa;&#xa;In-memory data cache&#xa;TTL: 1 hour&#xa;@st.cache_data decorator" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;align=center;" vertex="1" parent="cnt-1">
+          <mxGeometry x="280" y="380" width="320" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="cnt-github" value="GitHub Raw Data&#xa;&#xa;Sample claims CSV&#xa;Public repository" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;align=center;" vertex="1" parent="cnt-1">
+          <mxGeometry x="1000" y="120" width="200" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="cnt-openai" value="OpenAI API&#xa;&#xa;GPT-4 / GPT-3.5-turbo&#xa;Chat Completion API" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;align=center;" vertex="1" parent="cnt-1">
+          <mxGeometry x="1000" y="680" width="200" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="cnt-edge1" value="Uses" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;endArrow=block;endFill=1;fontSize=12;" edge="1" parent="cnt-1" source="cnt-user" target="cnt-webapp">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cnt-edge2" value="Uses" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;fontSize=11;" edge="1" parent="cnt-1" source="cnt-webapp" target="cnt-datamodule">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cnt-edge3" value="Uses" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;fontSize=11;" edge="1" parent="cnt-1" source="cnt-webapp" target="cnt-networkmod">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cnt-edge4" value="Uses" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;fontSize=11;" edge="1" parent="cnt-1" source="cnt-webapp" target="cnt-anomalymod">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cnt-edge5" value="Uses" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;fontSize=11;" edge="1" parent="cnt-1" source="cnt-webapp" target="cnt-gptmod">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cnt-edge6" value="Reads from&#xa;HTTPS" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;dashed=1;fontSize=11;" edge="1" parent="cnt-1" source="cnt-datamodule" target="cnt-github">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cnt-edge7" value="Caches data" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;fontSize=11;" edge="1" parent="cnt-1" source="cnt-webapp" target="cnt-cache">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cnt-edge8" value="Calls API&#xa;REST/HTTPS" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;dashed=1;fontSize=11;" edge="1" parent="cnt-1" source="cnt-gptmod" target="cnt-openai">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cnt-edge9" value="Uses" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;fontSize=11;" edge="1" parent="cnt-1" source="cnt-networkmod" target="cnt-datamodule">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cnt-edge10" value="Uses" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;fontSize=11;" edge="1" parent="cnt-1" source="cnt-anomalymod" target="cnt-datamodule">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="data-flow" name="Data Flow">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="2000" math="0" shadow="0">
+      <root>
+        <mxCell id="df-0" />
+        <mxCell id="df-1" parent="df-0" />
+        <mxCell id="df-title" value="Data Flow Architecture - Processing Pipeline" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;fontStyle=1" vertex="1" parent="df-1">
+          <mxGeometry x="300" y="40" width="800" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="df-input" value="INPUT LAYER" style="swimlane;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1976d2;fontStyle=1;fontSize=16;align=center;" vertex="1" parent="df-1">
+          <mxGeometry x="100" y="140" width="240" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="df-csv" value="CSV File Upload&#xa;&#xa;User-provided data" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#1976d2;fontSize=12;align=center;" vertex="1" parent="df-input">
+          <mxGeometry x="30" y="50" width="180" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="df-github" value="GitHub Data Source&#xa;&#xa;Sample claims repository" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#1976d2;fontSize=12;align=center;" vertex="1" parent="df-input">
+          <mxGeometry x="30" y="140" width="180" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="df-processing" value="PROCESSING LAYER" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#616161;fontStyle=1;fontSize=16;align=center;" vertex="1" parent="df-1">
+          <mxGeometry x="400" y="140" width="280" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="df-load" value="Load &amp; Parse&#xa;CSV parsing" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e0e0e0;strokeColor=#616161;fontSize=11;align=center;" vertex="1" parent="df-processing">
+          <mxGeometry x="30" y="50" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="df-validate" value="Validate Schema&#xa;Required columns check" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e0e0e0;strokeColor=#616161;fontSize=11;align=center;" vertex="1" parent="df-processing">
+          <mxGeometry x="30" y="110" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="df-sanitize" value="Sanitize Data&#xa;Remove duplicates, NULLs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e0e0e0;strokeColor=#616161;fontSize=11;align=center;" vertex="1" parent="df-processing">
+          <mxGeometry x="30" y="170" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="df-analysis" value="ANALYSIS LAYER" style="swimlane;whiteSpace=wrap;html=1;fillColor=#fff9c4;strokeColor=#f57f17;fontStyle=1;fontSize=16;align=center;" vertex="1" parent="df-1">
+          <mxGeometry x="740" y="140" width="280" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="df-network" value="Build Network Graph&#xa;NetworkX graph construction" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff59d;strokeColor=#f57f17;fontSize=11;align=center;" vertex="1" parent="df-analysis">
+          <mxGeometry x="30" y="50" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="df-anomaly" value="Detect Anomalies&#xa;3 Methods: Threshold, Z-Score, ML" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff59d;strokeColor=#f57f17;fontSize=11;align=center;" vertex="1" parent="df-analysis">
+          <mxGeometry x="30" y="110" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="df-stats" value="Calculate Statistics&#xa;Aggregations, metrics" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff59d;strokeColor=#f57f17;fontSize=11;align=center;" vertex="1" parent="df-analysis">
+          <mxGeometry x="30" y="170" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="df-enrichment" value="AI ENRICHMENT LAYER" style="swimlane;whiteSpace=wrap;html=1;fillColor=#fce4ec;strokeColor=#c2185b;fontStyle=1;fontSize=16;align=center;" vertex="1" parent="df-1">
+          <mxGeometry x="1080" y="140" width="280" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="df-explain" value="Explain Anomalies&#xa;GPT-4 analysis" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8bbd0;strokeColor=#c2185b;fontSize=11;align=center;" vertex="1" parent="df-enrichment">
+          <mxGeometry x="30" y="50" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="df-insights" value="Network Insights&#xa;Fraud ring detection" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8bbd0;strokeColor=#c2185b;fontSize=11;align=center;" vertex="1" parent="df-enrichment">
+          <mxGeometry x="30" y="110" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="df-qa" value="Q&amp;A Interface&#xa;Natural language queries" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8bbd0;strokeColor=#c2185b;fontSize=11;align=center;" vertex="1" parent="df-enrichment">
+          <mxGeometry x="30" y="170" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="df-output" value="OUTPUT LAYER" style="swimlane;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#388e3c;fontStyle=1;fontSize=16;align=center;" vertex="1" parent="df-1">
+          <mxGeometry x="400" y="440" width="960" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="df-viz" value="Visualizations&#xa;Plotly Interactive Charts&#xa;Network graphs, anomaly plots" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#a5d6a7;strokeColor=#388e3c;fontSize=11;align=center;" vertex="1" parent="df-output">
+          <mxGeometry x="30" y="50" width="280" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="df-report" value="Text Reports&#xa;&amp; Insights&#xa;AI-generated summaries" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#a5d6a7;strokeColor=#388e3c;fontSize=11;align=center;" vertex="1" parent="df-output">
+          <mxGeometry x="340" y="50" width="280" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="df-export" value="CSV Export&#xa;Downloadable files&#xa;Anomalies, filtered data" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#a5d6a7;strokeColor=#388e3c;fontSize=11;align=center;" vertex="1" parent="df-output">
+          <mxGeometry x="650" y="50" width="280" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="df-edge1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;endArrow=block;endFill=1;" edge="1" parent="df-1" source="df-csv" target="df-load">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="df-edge2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;endArrow=block;endFill=1;" edge="1" parent="df-1" source="df-github" target="df-load">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="df-edge3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;endArrow=block;endFill=1;" edge="1" parent="df-1" source="df-load" target="df-validate">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="df-edge4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;endArrow=block;endFill=1;" edge="1" parent="df-1" source="df-validate" target="df-sanitize">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="df-edge5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;endArrow=block;endFill=1;" edge="1" parent="df-1" source="df-sanitize" target="df-network">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="df-edge6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;endArrow=block;endFill=1;" edge="1" parent="df-1" source="df-sanitize" target="df-anomaly">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="df-edge7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;endArrow=block;endFill=1;" edge="1" parent="df-1" source="df-sanitize" target="df-stats">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="df-edge8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;endArrow=block;endFill=1;" edge="1" parent="df-1" source="df-network" target="df-insights">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="df-edge9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;endArrow=block;endFill=1;" edge="1" parent="df-1" source="df-anomaly" target="df-explain">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="df-edge10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;endArrow=block;endFill=1;" edge="1" parent="df-1" source="df-stats" target="df-qa">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="df-edge11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;endArrow=block;endFill=1;" edge="1" parent="df-1" source="df-explain" target="df-viz">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="df-edge12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;endArrow=block;endFill=1;" edge="1" parent="df-1" source="df-insights" target="df-report">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="df-edge13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;endArrow=block;endFill=1;" edge="1" parent="df-1" source="df-qa" target="df-export">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="deployment" name="Deployment">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="2000" math="0" shadow="0">
+      <root>
+        <mxCell id="dep-0" />
+        <mxCell id="dep-1" parent="dep-0" />
+        <mxCell id="dep-title" value="Deployment Architecture - Production Environment" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;fontStyle=1" vertex="1" parent="dep-1">
+          <mxGeometry x="300" y="40" width="800" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="dep-user" value="Healthcare Analyst&#xa;(Browser)" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="dep-1">
+          <mxGeometry x="80" y="200" width="100" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="dep-lb" value="Load Balancer&#xa;(Nginx/HAProxy)&#xa;&#xa;HTTPS Termination&#xa;SSL/TLS 1.3&#xa;Request routing" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;align=center;" vertex="1" parent="dep-1">
+          <mxGeometry x="280" y="200" width="220" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="dep-app1" value="Streamlit App&#xa;Instance 1&#xa;&#xa;Port: 8501&#xa;Python 3.10&#xa;Docker Container" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=center;" vertex="1" parent="dep-1">
+          <mxGeometry x="580" y="120" width="200" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="dep-app2" value="Streamlit App&#xa;Instance 2&#xa;&#xa;Port: 8502&#xa;Python 3.10&#xa;Docker Container" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=center;" vertex="1" parent="dep-1">
+          <mxGeometry x="580" y="280" width="200" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="dep-cache" value="Redis Cache&#xa;(Optional)&#xa;&#xa;Shared cache layer&#xa;Session data" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;align=center;" vertex="1" parent="dep-1">
+          <mxGeometry x="840" y="200" width="180" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="dep-github" value="GitHub Raw Data&#xa;&#xa;Public repository&#xa;HTTPS access" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;align=center;" vertex="1" parent="dep-1">
+          <mxGeometry x="1100" y="120" width="180" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="dep-openai" value="OpenAI API&#xa;&#xa;REST API&#xa;HTTPS only" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;align=center;" vertex="1" parent="dep-1">
+          <mxGeometry x="1100" y="240" width="180" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="dep-docker" value="Docker Container&#xa;Python 3.10-slim&#xa;Streamlit Runtime&#xa;Health checks enabled" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;align=center;dashed=1;" vertex="1" parent="dep-1">
+          <mxGeometry x="560" y="100" width="240" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="dep-edge1" value="HTTPS" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;endArrow=block;endFill=1;fontSize=12;" edge="1" parent="dep-1" source="dep-user" target="dep-lb">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dep-edge2" value="HTTP" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;fontSize=11;" edge="1" parent="dep-1" source="dep-lb" target="dep-app1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dep-edge3" value="HTTP" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;fontSize=11;" edge="1" parent="dep-1" source="dep-lb" target="dep-app2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dep-edge4" value="Cache" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;dashed=1;fontSize=11;" edge="1" parent="dep-1" source="dep-app1" target="dep-cache">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dep-edge5" value="Cache" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;dashed=1;fontSize=11;" edge="1" parent="dep-1" source="dep-app2" target="dep-cache">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dep-edge6" value="Load Data" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;dashed=1;fontSize=11;" edge="1" parent="dep-1" source="dep-app1" target="dep-github">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dep-edge7" value="API Call" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;dashed=1;fontSize=11;" edge="1" parent="dep-1" source="dep-app1" target="dep-openai">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="sequence" name="Sequence">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="2000" math="0" shadow="0">
+      <root>
+        <mxCell id="seq-0" />
+        <mxCell id="seq-1" parent="seq-0" />
+        <mxCell id="seq-title" value="Sequence Diagram - Data Loading and Analysis Flow" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;fontStyle=1" vertex="1" parent="seq-1">
+          <mxGeometry x="200" y="40" width="1000" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="seq-user" value="User" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="seq-1">
+          <mxGeometry x="120" y="140" width="120" height="800" as="geometry" />
+        </mxCell>
+        <mxCell id="seq-ui" value="Streamlit UI" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="seq-1">
+          <mxGeometry x="320" y="140" width="140" height="800" as="geometry" />
+        </mxCell>
+        <mxCell id="seq-data" value="Data Module" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="seq-1">
+          <mxGeometry x="540" y="140" width="140" height="800" as="geometry" />
+        </mxCell>
+        <mxCell id="seq-network" value="Network Module" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="seq-1">
+          <mxGeometry x="760" y="140" width="140" height="800" as="geometry" />
+        </mxCell>
+        <mxCell id="seq-anomaly" value="Anomaly Module" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="seq-1">
+          <mxGeometry x="980" y="140" width="140" height="800" as="geometry" />
+        </mxCell>
+        <mxCell id="seq-gpt" value="GPT Module" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="seq-1">
+          <mxGeometry x="1200" y="140" width="140" height="800" as="geometry" />
+        </mxCell>
+        <mxCell id="seq-edge1" value="1. Open App" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;fontSize=11;" edge="1" parent="seq-1" source="seq-user" target="seq-ui">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="seq-edge2" value="2. Click Load Data" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;fontSize=11;" edge="1" parent="seq-1" source="seq-user" target="seq-ui">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="180" y="260" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq-edge3" value="3. load_claims_data()" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;fontSize=11;" edge="1" parent="seq-1" source="seq-ui" target="seq-data">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="390" y="280" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq-edge4" value="4. DataFrame" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;dashed=1;fontSize=11;" edge="1" parent="seq-1" source="seq-data" target="seq-ui">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="610" y="340" />
+              <mxPoint x="390" y="340" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq-edge5" value="5. build_network()" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;fontSize=11;" edge="1" parent="seq-1" source="seq-ui" target="seq-network">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="390" y="420" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq-edge6" value="6. detect_anomalies()" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;fontSize=11;" edge="1" parent="seq-1" source="seq-ui" target="seq-anomaly">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="390" y="480" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq-edge7" value="7. NetworkX Graph" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;dashed=1;fontSize=11;" edge="1" parent="seq-1" source="seq-network" target="seq-ui">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="830" y="460" />
+              <mxPoint x="390" y="460" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq-edge8" value="8. Anomaly Scores" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;dashed=1;fontSize=11;" edge="1" parent="seq-1" source="seq-anomaly" target="seq-ui">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1050" y="520" />
+              <mxPoint x="390" y="520" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq-edge9" value="9. Generate Insights" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;fontSize=11;" edge="1" parent="seq-1" source="seq-user" target="seq-ui">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="180" y="600" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq-edge10" value="10. generate_network_insights()" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;fontSize=11;" edge="1" parent="seq-1" source="seq-ui" target="seq-gpt">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="390" y="620" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq-edge11" value="11. OpenAI API Call" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;dashed=1;fontSize=11;" edge="1" parent="seq-1" source="seq-gpt" target="seq-gpt">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1270" y="680" />
+              <mxPoint x="1270" y="700" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq-edge12" value="12. AI Insights" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;dashed=1;fontSize=11;" edge="1" parent="seq-1" source="seq-gpt" target="seq-ui">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1270" y="740" />
+              <mxPoint x="390" y="740" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq-edge13" value="13. Display Results" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;fontSize=11;" edge="1" parent="seq-1" source="seq-ui" target="seq-user">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="390" y="800" />
+              <mxPoint x="180" y="800" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="component-data" name="Component - Data Module">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="2000" math="0" shadow="0">
+      <root>
+        <mxCell id="comp-0" />
+        <mxCell id="comp-1" parent="comp-0" />
+        <mxCell id="comp-title" value="C4 Component Diagram - Data Processing Module" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;fontStyle=1" vertex="1" parent="comp-1">
+          <mxGeometry x="300" y="40" width="800" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="comp-datamodule" value="Data Processing Module (utils/data.py)" style="swimlane;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=16;align=center;" vertex="1" parent="comp-1">
+          <mxGeometry x="200" y="140" width="1000" height="600" as="geometry" />
+        </mxCell>
+        <mxCell id="comp-load" value="load_claims_data()&#xa;&#xa;Loads CSV from URL or file&#xa;Returns: DataFrame&#xa;Uses: requests, pandas" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#4caf50;fontSize=11;align=left;" vertex="1" parent="comp-datamodule">
+          <mxGeometry x="60" y="80" width="220" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="comp-sanitize" value="sanitize_claims_data()&#xa;&#xa;Removes duplicates&#xa;Type conversion&#xa;NULL handling&#xa;Data validation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#4caf50;fontSize=11;align=left;" vertex="1" parent="comp-datamodule">
+          <mxGeometry x="320" y="80" width="220" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="comp-filter" value="filter_claims_by_parameters()&#xa;&#xa;Amount range filter&#xa;Date range filter&#xa;Patient/Provider filters&#xa;Returns: Filtered DataFrame" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#4caf50;fontSize=11;align=left;" vertex="1" parent="comp-datamodule">
+          <mxGeometry x="580" y="80" width="220" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="comp-stats" value="get_statistics()&#xa;&#xa;Calculates metrics&#xa;Total, avg, median, std dev&#xa;Unique patient/provider counts&#xa;Returns: Dict" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#4caf50;fontSize=11;align=left;" vertex="1" parent="comp-datamodule">
+          <mxGeometry x="840" y="80" width="220" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="comp-validate" value="validate_schema()&#xa;&#xa;Checks required columns&#xa;Validates data types&#xa;Schema enforcement" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9c4;strokeColor=#f57f17;fontSize=11;align=center;" vertex="1" parent="comp-datamodule">
+          <mxGeometry x="200" y="240" width="200" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="comp-cache" value="@st.cache_data&#xa;&#xa;TTL: 1 hour&#xa;In-memory cache&#xa;Streamlit caching" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;align=center;" vertex="1" parent="comp-datamodule">
+          <mxGeometry x="450" y="240" width="200" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="comp-pandas" value="pandas Library&#xa;&#xa;DataFrame operations&#xa;Data manipulation&#xa;CSV I/O" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;align=center;" vertex="1" parent="comp-datamodule">
+          <mxGeometry x="700" y="240" width="200" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="comp-edge1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;" edge="1" parent="comp-datamodule" source="comp-load" target="comp-validate">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="comp-edge2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;" edge="1" parent="comp-datamodule" source="comp-validate" target="comp-sanitize">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="comp-edge3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;" edge="1" parent="comp-datamodule" source="comp-sanitize" target="comp-filter">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="comp-edge4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;" edge="1" parent="comp-datamodule" source="comp-filter" target="comp-stats">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="comp-edge5" value="Uses" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;dashed=1;" edge="1" parent="comp-datamodule" source="comp-load" target="comp-cache">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="comp-edge6" value="Uses" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;dashed=1;" edge="1" parent="comp-datamodule" source="comp-sanitize" target="comp-pandas">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="comp-edge7" value="Uses" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;dashed=1;" edge="1" parent="comp-datamodule" source="comp-filter" target="comp-pandas">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="comp-edge8" value="Uses" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;dashed=1;" edge="1" parent="comp-datamodule" source="comp-stats" target="comp-pandas">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="anomaly-detection" name="Anomaly Detection Workflow">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="2000" math="0" shadow="0">
+      <root>
+        <mxCell id="ano-0" />
+        <mxCell id="ano-1" parent="ano-0" />
+        <mxCell id="ano-title" value="Anomaly Detection Workflow - Three Methods" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;fontStyle=1" vertex="1" parent="ano-1">
+          <mxGeometry x="300" y="40" width="800" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ano-input" value="Filtered Claims Data&#xa;DataFrame" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1976d2;fontSize=12;align=center;" vertex="1" parent="ano-1">
+          <mxGeometry x="600" y="140" width="200" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ano-method1" value="Method 1: Threshold&#xa;&#xa;detect_anomalies_threshold()&#xa;Simple amount comparison&#xa;Fast: O(n)" style="swimlane;whiteSpace=wrap;html=1;fillColor=#ffccbc;strokeColor=#d84315;fontStyle=1;fontSize=12;align=left;" vertex="1" parent="ano-1">
+          <mxGeometry x="100" y="280" width="300" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="ano-method2" value="Method 2: Statistical Z-Score&#xa;&#xa;detect_anomalies_statistical()&#xa;Z = (x - μ) / σ&#xa;Medium: O(n)" style="swimlane;whiteSpace=wrap;html=1;fillColor=#c5e1a5;strokeColor=#558b2f;fontStyle=1;fontSize=12;align=left;" vertex="1" parent="ano-1">
+          <mxGeometry x="500" y="280" width="300" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="ano-method3" value="Method 3: Isolation Forest&#xa;&#xa;detect_anomalies_isolation_forest()&#xa;ML-based outlier detection&#xa;Complex: O(n log n)" style="swimlane;whiteSpace=wrap;html=1;fillColor=#b3e5fc;strokeColor=#0277bd;fontStyle=1;fontSize=12;align=left;" vertex="1" parent="ano-1">
+          <mxGeometry x="900" y="280" width="300" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="ano-combine" value="combine_anomaly_scores()&#xa;&#xa;Normalize scores (0-1)&#xa;Apply weights&#xa;Generate final score" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9c4;strokeColor=#f57f17;fontSize=12;align=center;" vertex="1" parent="ano-1">
+          <mxGeometry x="500" y="540" width="300" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="ano-rank" value="get_top_anomalies()&#xa;&#xa;Rank by score&#xa;Return top N" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#388e3c;fontSize=12;align=center;" vertex="1" parent="ano-1">
+          <mxGeometry x="500" y="700" width="300" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ano-edge1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;endArrow=block;endFill=1;" edge="1" parent="ano-1" source="ano-input" target="ano-method1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ano-edge2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;endArrow=block;endFill=1;" edge="1" parent="ano-1" source="ano-input" target="ano-method2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ano-edge3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;endArrow=block;endFill=1;" edge="1" parent="ano-1" source="ano-input" target="ano-method3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ano-edge4" value="Scores" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;" edge="1" parent="ano-1" source="ano-method1" target="ano-combine">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ano-edge5" value="Scores" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;" edge="1" parent="ano-1" source="ano-method2" target="ano-combine">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ano-edge6" value="Scores" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;" edge="1" parent="ano-1" source="ano-method3" target="ano-combine">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ano-edge7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;endArrow=block;endFill=1;" edge="1" parent="ano-1" source="ano-combine" target="ano-rank">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="network-analysis" name="Network Analysis Workflow">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="2000" math="0" shadow="0">
+      <root>
+        <mxCell id="net-0" />
+        <mxCell id="net-1" parent="net-0" />
+        <mxCell id="net-title" value="Network Analysis Workflow - Graph Construction" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;fontStyle=1" vertex="1" parent="net-1">
+          <mxGeometry x="300" y="40" width="800" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="net-input" value="Claims DataFrame&#xa;patient_id, provider_id, claim_amount" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1976d2;fontSize=12;align=center;" vertex="1" parent="net-1">
+          <mxGeometry x="600" y="140" width="200" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="net-build" value="build_patient_provider_network()&#xa;&#xa;Creates NetworkX Graph&#xa;G = nx.Graph()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;align=center;" vertex="1" parent="net-1">
+          <mxGeometry x="500" y="280" width="400" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="net-nodes" value="Add Nodes&#xa;&#xa;Patient nodes: 'Patient_{id}'&#xa;Provider nodes: 'Provider_{id}'" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#4caf50;fontSize=11;align=center;" vertex="1" parent="net-1">
+          <mxGeometry x="200" y="420" width="200" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="net-edges" value="Add Edges&#xa;&#xa;patient → provider&#xa;weight = claim_amount" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#4caf50;fontSize=11;align=center;" vertex="1" parent="net-1">
+          <mxGeometry x="500" y="420" width="200" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="net-metrics" value="Calculate Metrics&#xa;&#xa;Density, connectivity&#xa;Avg degree, components" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#4caf50;fontSize=11;align=center;" vertex="1" parent="net-1">
+          <mxGeometry x="800" y="420" width="200" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="net-cliques" value="detect_suspicious_clusters()&#xa;&#xa;Find cliques (size ≥ 3)&#xa;Score by connectivity" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9c4;strokeColor=#f57f17;fontSize=12;align=center;" vertex="1" parent="net-1">
+          <mxGeometry x="500" y="580" width="400" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="net-visualize" value="create_network_visualization()&#xa;&#xa;Spring layout optimization&#xa;Plotly interactive graph" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#388e3c;fontSize=12;align=center;" vertex="1" parent="net-1">
+          <mxGeometry x="500" y="720" width="400" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="net-edge1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;endArrow=block;endFill=1;" edge="1" parent="net-1" source="net-input" target="net-build">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="net-edge2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;" edge="1" parent="net-1" source="net-build" target="net-nodes">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="net-edge3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;" edge="1" parent="net-1" source="net-nodes" target="net-edges">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="net-edge4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;" edge="1" parent="net-1" source="net-edges" target="net-metrics">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="net-edge5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;endArrow=block;endFill=1;" edge="1" parent="net-1" source="net-metrics" target="net-cliques">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="net-edge6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;endArrow=block;endFill=1;" edge="1" parent="net-1" source="net-cliques" target="net-visualize">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
